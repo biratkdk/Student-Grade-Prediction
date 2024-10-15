@@ -2,10 +2,14 @@
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
+import warnings
 from sklearn.preprocessing import LabelEncoder
 from sklearn.linear_model import LinearRegression
 from sklearn.ensemble import RandomForestRegressor, GradientBoostingRegressor
 from sklearn.model_selection import train_test_split
+
+# Suppress warnings
+warnings.filterwarnings('ignore')
 
 # Set page config
 st.set_page_config(
@@ -68,16 +72,6 @@ This interactive dashboard analyzes and predicts student final grades based on v
             st.metric('Avg Final Grade', f'{df["G3"].mean():.2f}')
         with col_c:
             st.metric('Grade Range', f'{df["G3"].min():.0f}-{df["G3"].max():.0f}')
-
-    st.markdown('---')
-    st.markdown('### 🎓 About Creator')
-    st.write('''
-**Built By:** Birat Khadka  
-**Institution:** United Technical College of Engineering  
-**GitHub:** [@biratkdk](https://github.com/biratkdk)
-
-This project demonstrates skills in data analysis, machine learning, and web application development using Python and Streamlit.
-    ''')
 
 # PAGE 2: DATA ANALYSIS
 elif page == '📈 Data Analysis':
