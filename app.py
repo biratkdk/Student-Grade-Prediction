@@ -4,14 +4,13 @@ import numpy as np
 import matplotlib.pyplot as plt
 import warnings
 from sklearn.preprocessing import LabelEncoder
-from sklearn.linear_model import LinearRegression
-from sklearn.ensemble import RandomForestRegressor, GradientBoostingRegressor
+from sklearn.linear_model import LinearRegression, ElasticNet
+from sklearn.svm import SVR
+from sklearn.ensemble import RandomForestRegressor, GradientBoostingRegressor, ExtraTreesRegressor
 from sklearn.model_selection import train_test_split
 
-# Suppress warnings
 warnings.filterwarnings('ignore')
 
-# Set page config
 st.set_page_config(
     page_title='Student Grade Predictor',
     page_icon='📊',
@@ -22,14 +21,12 @@ st.set_page_config(
 st.markdown('<h1 style="color: #1f77b4;">📊 Student Grade Prediction System</h1>', unsafe_allow_html=True)
 st.markdown('*Predict Portuguese student final grades using Machine Learning*')
 
-# Load data
 @st.cache_data
 def load_data():
     return pd.read_csv('student-mat.csv')
 
 df = load_data()
 
-# Function to encode dataframe
 @st.cache_data
 def encode_dataframe(data_df):
     df_encoded = data_df.copy()
@@ -45,11 +42,9 @@ def encode_dataframe(data_df):
 
 df_encoded, label_encoders = encode_dataframe(df)
 
-# Sidebar navigation
 st.sidebar.title('Navigation')
 page = st.sidebar.radio('Select Page:', ['🏠 Home', '📈 Data Analysis', '🎯 Predict Grade', '📊 Model Performance'])
 
-# PAGE 1: HOME
 if page == '🏠 Home':
     col1, col2 = st.columns(2)
 
@@ -60,7 +55,7 @@ This interactive dashboard analyzes and predicts student final grades based on v
 - **Dataset:** 395 Portuguese high school students
 - **Features:** 32 attributes (demographics, study habits, social factors)   
 - **Goal:** Predict final grade (G3) on 0-20 scale
-- **Models:** Linear Regression, Random Forest, Gradient Boosting
+- **Models:** Linear Regression, ElasticNet, Random Forest, Extra Trees, SVM, Gradient Boosting
         ''')
 
     with col2:
@@ -73,7 +68,6 @@ This interactive dashboard analyzes and predicts student final grades based on v
         with col_c:
             st.metric('Grade Range', f'{df["G3"].min():.0f}-{df["G3"].max():.0f}')
 
-# PAGE 2: DATA ANALYSIS
 elif page == '📈 Data Analysis':
     st.header('📈 Exploratory Data Analysis')
 
@@ -107,7 +101,6 @@ elif page == '📈 Data Analysis':
     with col3:
         st.metric('Urban Students', len(df[df['address'] == 'U']))
 
-# PAGE 3: PREDICT GRADE
 elif page == '🎯 Predict Grade':
     st.header('🎯 Predict Student Final Grade')
     st.write('Fill in student details to predict their final grade')
@@ -128,10 +121,26 @@ elif page == '🎯 Predict Grade':
         Medu = st.slider("Mother's Education Level", 0, 4, 2)
         Fedu = st.slider("Father's Education Level", 0, 4, 2)
 
+    st.subheader('Student Profile')
+    col_sex, col_address = st.columns(2)
+    
+    with col_sex:
+        sex = st.radio('Gender', ['Male', 'Female'], format_func=lambda x: '👨 Male' if x == 'Male' else '👩 Female')
+    
+    with col_address:
+        address = st.radio('Area Type', ['Urban', 'Rural'], format_func=lambda x: '🏙️ Urban' if x == 'Urban' else '🌾 Rural')
+
     if st.button('🎯 Predict Grade', key='predict'):
-        # Prepare input data using only numeric features
+        # Encode sex and address
+        sex_val = 'M' if sex == 'Male' else 'F'
+        address_val = 'U' if address == 'Urban' else 'R'
+        sex_encoded = label_encoders['sex'].transform([sex_val])[0] if 'sex' in label_encoders else 0
+        address_encoded = label_encoders['address'].transform([address_val])[0] if 'address' in label_encoders else 0
+        
         input_data = pd.DataFrame({
             'age': [age],
+            'sex': [sex_encoded],
+            'address': [address_encoded],
             'failures': [failures],
             'absences': [absences],
             'studytime': [studytime],
@@ -141,15 +150,14 @@ elif page == '🎯 Predict Grade':
             'Fedu': [Fedu],
         })
 
-        # Train model on numeric features only
-        X = df_encoded[['age', 'failures', 'absences', 'studytime', 'goout', 'health', 'Medu', 'Fedu']]
+        X = df_encoded[['age', 'sex', 'address', 'failures', 'absences', 'studytime', 'goout', 'health', 'Medu', 'Fedu']]
         y = df_encoded['G3']
 
         model = LinearRegression()
         model.fit(X, y)
 
         prediction = model.predict(input_data)[0]
-        prediction = max(0, min(20, prediction))  # Clamp between 0-20
+        prediction = max(0, min(20, prediction))
 
         st.success(f'### Predicted Final Grade: **{prediction:.2f}/20**')
 
@@ -162,11 +170,9 @@ elif page == '🎯 Predict Grade':
         else:
             st.warning('📈 Needs Improvement')
 
-# PAGE 4: MODEL PERFORMANCE
 elif page == '📊 Model Performance':
     st.header('📊 Model Comparison & Performance')
 
-    # Select only numeric features for modeling
     numeric_features = df_encoded.select_dtypes(include=[np.number]).columns.tolist()
     if 'G3' in numeric_features:
         numeric_features.remove('G3')
@@ -174,13 +180,14 @@ elif page == '📊 Model Performance':
     X = df_encoded[numeric_features]
     y = df_encoded['G3']
 
-    # Train-test split
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.25, random_state=42)
 
-    # Train models
     models = {
         'Linear Regression': LinearRegression(),
+        'ElasticNet': ElasticNet(random_state=42),
         'Random Forest': RandomForestRegressor(n_estimators=100, random_state=42),
+        'Extra Trees': ExtraTreesRegressor(n_estimators=100, random_state=42),
+        'SVM': SVR(kernel='rbf'),
         'Gradient Boosting': GradientBoostingRegressor(random_state=42),
     }
 
@@ -197,7 +204,6 @@ elif page == '📊 Model Performance':
     results_df = pd.DataFrame(results).T
     st.dataframe(results_df.style.highlight_max(axis=0, color='lightgreen'))
 
-    # Visualize
     col1, col2 = st.columns(2)
 
     with col1:
@@ -216,12 +222,14 @@ elif page == '📊 Model Performance':
         ax.set_xticklabels(ax.get_xticklabels(), rotation=45)
         st.pyplot(fig)
 
-    st.success('✅ Linear Regression performs best with lowest error rates!')
+    st.success('✅ All 6 models trained and compared!')
 
-# Footer
 st.markdown('---')
 st.markdown('''
 **Built with 💡 by Birat Khadka using Streamlit**  
 GitHub: [@biratkdk](https://github.com/biratkdk) | College: United Technical College of Engineering  
 *Original Dataset: UCI Student Performance*
 ''')
+
+
+

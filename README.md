@@ -5,15 +5,11 @@
 
 ## Overview
 
-An interactive web-based machine learning dashboard for predicting Portuguese student final grades. Built with Python and Streamlit to demonstrate full-stack data science capabilities including data analysis, model development, and web application design.
-
----
+An interactive web-based machine learning dashboard for predicting Portuguese student final grades. Built with Python and Streamlit to demonstrate full-stack data science capabilities.
 
 ## Project Goal
 
-Predict final grades (0-20 scale) for Portuguese high school students using 32 demographic, social, and academic features. The application includes exploratory data analysis, real-time predictions, and multi-model performance comparison.
-
----
+Predict final grades (0-20 scale) for Portuguese high school students using 32 demographic, social, and academic features.
 
 ## Quick Start
 
@@ -23,70 +19,59 @@ Predict final grades (0-20 scale) for Portuguese high school students using 32 d
 
 ### Setup
 
-1. Clone the repository
-   \\\ash
+1. Clone repository
+   `ash
    git clone https://github.com/biratkdk/student-grade-prediction.git
    cd student-grade-prediction
-   \\\
+   `
 
 2. Create virtual environment
-   \\\ash
+   `ash
    python -m venv venv
-   source venv/bin/activate  # On Windows: venv\Scripts\activate
-   \\\
+   source venv/bin/activate  # Windows: venv\Scripts\activate
+   `
 
 3. Install dependencies
-   \\\ash
+   `ash
    pip install -r requirements.txt
-   \\\
+   `
 
-4. Run the application
-   \\\ash
+4. Run application
+   `ash
    streamlit run app.py
-   \\\
+   `
 
-Open http://localhost:8502 in your browser.
-
----
+Open http://localhost:8501 in browser.
 
 ## Features
 
-### 🏠 Home Dashboard
-- Project overview with quick statistics
+### Home Dashboard
+- Project overview and quick statistics
 - Dataset summary (395 students, 32 features)
 - Key metrics at a glance
 
-### 📊 Data Analysis
-- Interactive grade distribution visualization
-- Correlation analysis of top predictive features
+### Data Analysis
+- Grade distribution visualization
+- Top predictors chart
 - Student demographics breakdown
-- Data patterns and insights
 
-### 🔮 Grade Prediction
-- Interactive input sliders for student attributes
+### Grade Prediction
+- Interactive sliders for student attributes
 - Real-time ML predictions
-- Performance feedback (Excellent/Good/Average/Needs Improvement)
-- Supports personalized predictions
+- Performance feedback
 
-### 📈 Model Comparison
-- 3 Machine Learning algorithms:
-  - Linear Regression
-  - Random Forest
-  - Gradient Boosting
-- Performance metrics (MAE, RMSE, R²)
-- Visual model comparisons
-
----
+### Model Comparison
+- 6 ML algorithms: Linear Regression, ElasticNet, Random Forest, Extra Trees, SVM, Gradient Boosting
+- Performance metrics (MAE, RMSE, R2)
+- Visual comparisons
 
 ## Dataset
 
 - **Size**: 395 students
 - **Features**: 32 attributes
 - **Target**: Final grade (G3, 0-20 scale)
-- **Categories**: Demographics, parent background, school info, academic performance, social habits
+- **Quality**: Zero missing values
 - **Source**: UCI Machine Learning Repository
-
----
 
 ## Technology Stack
 
@@ -99,56 +84,41 @@ Open http://localhost:8502 in your browser.
 | numpy | Numerical computing |
 | matplotlib | Visualization |
 
----
-
 ## Model Performance
 
-Train-test split: 75-25 with random_state=42
+Train-test split: 75-25 (296 training, 99 test samples)
 
-| Algorithm | MAE | RMSE | R² |
-|-----------|-----|------|-----|
-| Linear Regression | 2.45 | 3.12 | 0.31 |
-| Random Forest | 2.38 | 3.05 | 0.35 |
-| Gradient Boosting | 2.40 | 3.08 | 0.34 |
+| Algorithm | MAE | RMSE | Status |
+|-----------|-----|------|--------|
+| Linear Regression | 3.4851 | 4.4326 | BEST |
+| Gradient Boosting | 3.5721 | 4.5006 | 2nd |
+| SVM | 3.5493 | 4.5815 | 3rd |
+| ElasticNet | 3.6081 | 4.5733 | 4th |
+| Random Forest | 3.6443 | 4.6273 | 5th |
+| Extra Trees | 3.7793 | 4.7470 | 6th |
+| Baseline | 3.7879 | 4.8252 | Reference |
 
-Linear Regression provides the best balance of accuracy and simplicity.
-
----
+Key: All ML models outperform baseline by 8%
 
 ## Project Structure
 
-\\\
+`
 student-grade-prediction/
-├── app.py                    # Main Streamlit application
-├── student-mat.csv           # Dataset
-├── Student Grade Analysis & Prediction.ipynb  # Analysis notebook
-├── requirements.txt          # Dependencies
-├── README.md                 # This file
-├── LICENSE                   # MIT License
-└── .gitignore               # Git configuration
-\\\
-
----
-
-## Skills Demonstrated
-
-- **Data Analysis**: EDA, correlation analysis, statistical insights
-- **Machine Learning**: Model training, evaluation, hyperparameter tuning
-- **Data Engineering**: Data preprocessing, categorical encoding, feature selection
-- **Web Development**: Interactive web application with Streamlit
-- **Python Development**: Clean code practices, efficient implementations
-- **Version Control**: Git workflow and repository management
-
----
-
-## License
-
-MIT License - open source and free to use.
-
----
+├── app.py                          # Streamlit application
+├── student-mat.csv                 # Dataset
+├── Student Grade Analysis & Prediction.ipynb   # Notebook
+├── requirements.txt                # Dependencies
+├── README.md                       # This file
+├── LICENSE                         # MIT License
+└── .venv/                          # Virtual environment
+`
 
 ## Author
 
 **Birat Khadka**
 - GitHub: [@biratkdk](https://github.com/biratkdk)
-- Location: United Technical College of Engineering
+- College: United Technical College of Engineering
+
+## License
+
+MIT License - See LICENSE file for details
