@@ -1,4 +1,4 @@
-﻿# Student Grade Prediction Dashboard
+# Student Grade Prediction Dashboard
 
 [![GitHub Profile](https://img.shields.io/badge/GitHub-biratkdk-blue?style=flat-square)](https://github.com/biratkdk)
 [![License MIT](https://img.shields.io/badge/license-MIT-green.svg?style=flat-square)](./LICENSE)
@@ -104,14 +104,24 @@ Key: All ML models outperform baseline by 8%
 
 `
 student-grade-prediction/
-├── app.py                          # Streamlit application
-├── student-mat.csv                 # Dataset
-├── Student Grade Analysis & Prediction.ipynb   # Notebook
-├── requirements.txt                # Dependencies
-├── README.md                       # This file
-├── LICENSE                         # MIT License
-└── .venv/                          # Virtual environment
++-- app.py                          # Streamlit application
++-- student-mat.csv                 # Dataset
++-- Student Grade Analysis & Prediction.ipynb   # Notebook
++-- requirements.txt                # Dependencies
++-- README.md                       # This file
++-- LICENSE                         # MIT License
++-- .venv/                          # Virtual environment
 `
+
+## Implementation Notes
+
+This is an original implementation built from scratch for a 5-credit university machine learning project. The project includes:
+- Complete feature engineering and model selection
+- Interactive web dashboard with Streamlit
+- Real-time predictions with demographic filtering
+- Comprehensive EDA and statistical analysis
+
+Dataset sourced from UCI ML Repository (public domain).
 
 ## Author
 
@@ -122,3 +132,4 @@ student-grade-prediction/
 ## License
 
 MIT License - See LICENSE file for details
+
