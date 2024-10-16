@@ -15,7 +15,7 @@ This project predicts final grades for Portuguese high school students. I built 
 
 ## Why This Project
 
-I wanted to understand what factors matter most for student success and build something practical that actually works. The goal is to help predict grades accurately so educators can identify struggling students early.
+This is my learning project to practice machine learning and web development. I wanted to build something from start to finish - from data exploration to deploying a live app. It's a great way to learn how ML models work and how to turn code into an interactive tool.
 
 ## Quick Start
 
@@ -121,7 +121,7 @@ student-grade-prediction/
 
 ## Implementation Notes
 
-This is an original implementation built from scratch for a 5-credit university machine learning project. The project includes:
+This is a personal learning project I built from scratch to practice machine learning. The project includes:
 - Complete feature engineering and model selection
 - Interactive web dashboard with Streamlit
 - Real-time predictions with demographic filtering
