@@ -1,7 +1,6 @@
 # Student Grade Prediction Dashboard
 
 [![GitHub Profile](https://img.shields.io/badge/GitHub-biratkdk-blue?style=flat-square)](https://github.com/biratkdk)
-[![License MIT](https://img.shields.io/badge/license-MIT-green.svg?style=flat-square)](./LICENSE)
 
 ## Overview
 
@@ -109,7 +108,7 @@ student-grade-prediction/
 +-- Student Grade Analysis & Prediction.ipynb   # Notebook
 +-- requirements.txt                # Dependencies
 +-- README.md                       # This file
-+-- LICENSE                         # MIT License
++-- LICENSE                         # Copyright notice
 +-- .venv/                          # Virtual environment
 `
 
@@ -131,5 +130,5 @@ Dataset sourced from UCI ML Repository (public domain).
 
 ## License
 
-MIT License - See LICENSE file for details
+Copyright - See LICENSE file for details
 
