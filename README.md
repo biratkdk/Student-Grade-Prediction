@@ -4,11 +4,18 @@
 
 ## Overview
 
-An interactive web-based machine learning dashboard for predicting Portuguese student final grades. Built with Python and Streamlit to demonstrate full-stack data science capabilities.
+This project predicts final grades for Portuguese high school students. I built an interactive web app where you can see how different factors like study time, absences, and family background affect student performance. The app uses machine learning to make predictions based on real student data.
 
-## Project Goal
+## What I Did
 
-Predict final grades (0-20 scale) for Portuguese high school students using 32 demographic, social, and academic features.
+- Analyzed data from 395 students to find patterns in grades
+- Built and compared 6 different machine learning models
+- Created an interactive dashboard where you can test predictions
+- Added features to filter by gender and location (urban/rural)
+
+## Why This Project
+
+I wanted to understand what factors matter most for student success and build something practical that actually works. The goal is to help predict grades accurately so educators can identify struggling students early.
 
 ## Quick Start
 
