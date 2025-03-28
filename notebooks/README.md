@@ -1,0 +1,1 @@
+This folder contains exploratory notebook work. The production training pipeline, saved model artifacts, and evaluation outputs are implemented in `src/student_grade_prediction/` and generated with `python train_model.py`.
